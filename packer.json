@@ -1,55 +1,35 @@
 {
-  "builders": [
+  "builders":
+  [
     {
-      "vm_name": "centos7.0",
-      "guest_os_type": "RedHat_64",
+      "type": "qemu",
+      "iso_url": "http://mirror.raystedman.net/centos/7/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso",
+      "iso_checksum": "e3afe3f1121d69c40cc23f0bafa05e5d",
       "iso_checksum_type": "md5",
-      "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
-      "iso_url": "http://ftp.riken.jp/Linux/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
-      "type": "virtualbox-iso",
-      "ssh_password": "vagrant",
-      "ssh_username": "vagrant",
-      "ssh_wait_timeout": "50000s",
-      "headless": "true",
-      "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "1024"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
-      ],
+      "output_directory": "output_centos",
+      "ssh_wait_timeout": "30s",
+      "shutdown_command": "shutdown -P now",
+      "disk_size": 35000,
+      "format": "raw",
+      "headless": false,
+      "accelerator": "kvm",
       "http_directory": ".",
-      "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
-      ],
-      "guest_additions_url": "https://www.virtualbox.org/download/testcase/VBoxGuestAdditions_4.3.13-94832.iso",
-      "guest_additions_sha256": "7a00c05b85787fa2837b85dfb00ffe674b902810a53fcdb9a32e1526befb7d4f",
-      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p"
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "scripts": [
-        "vagrant.sh",
-        "virtualbox.sh",
-        "cleanup.sh"
-      ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
-    }
-  ],
-  "post-processors": [
-    {
-      "type": "vagrant",
-      "compression_level": 9,
-      "output": "centos7.0.box"
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "root",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "90m",
+      "vm_name": "tdhtest",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_wait": "5s",
+      "boot_command":
+      [
+          "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.ks<enter>"
+      ]
     }
   ]
 }
