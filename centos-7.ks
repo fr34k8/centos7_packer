@@ -25,6 +25,8 @@ reboot
 
 %packages
 @Core
+@^GNOME Desktop
+@C Development Tools and Libraries
 bzip2
 gcc
 kernel-devel
