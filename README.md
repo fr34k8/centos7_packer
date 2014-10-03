@@ -1,9 +1,8 @@
 packer-centos-7
 ===============
 
-```
-vagrant up hfm4/centos7
-```
+My personal adaptation of centos7 for packer.
 
-#### ref
-https://vagrantcloud.com/hfm4/centos7
+This repo started from git@github.com:tacahilo/packer-centos-7.git
+but I have modified it a lot
+
